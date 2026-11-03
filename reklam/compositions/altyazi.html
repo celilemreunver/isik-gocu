@@ -1,0 +1,46 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; pointer-events: none; }
+    .cap { position: absolute; left: 0; right: 0; top: 1170px; text-align: center; overflow: visible; }
+    .cap-t { display: inline-block; padding: 10px 26px 14px; border-radius: 18px; background: rgba(5,6,18,.62);
+      font: 900 76px/1.12 Inter, sans-serif; color: #fff; letter-spacing: -.01em; text-shadow: 0 4px 14px rgba(0,0,0,.6); }
+    .cap-ece .cap-t { color: #ffc2f2; }
+    .cap-kaan .cap-t { color: #c4f6ff; }
+    .cap-anl .cap-t { color: #fff; }
+    .cap-who { display: block; width: max-content; margin: 0 auto 10px; padding: 6px 16px; border-radius: 10px; color: #070914;
+      font: 900 30px/1 Inter, sans-serif; letter-spacing: .1em; }
+  </style>
+  <div id="root" data-composition-id="altyazi" data-width="1080" data-height="1920">
+    <div id="cap-0" class="clip cap cap-ece" data-start="0.25" data-duration="0.7"><span class="cap-who" style="background:#ff4fd8">ECE</span><span class="cap-t">Ne oluyor?!</span></div>
+    <div id="cap-1" class="clip cap cap-ece" data-start="0.97" data-duration="1.26"><span class="cap-who" style="background:#ff4fd8">ECE</span><span class="cap-t">Nereye gidiyoruz?</span></div>
+    <div id="cap-2" class="clip cap cap-kaan" data-start="2.25" data-duration="1.07"><span class="cap-who" style="background:#35e0ff">KAAN</span><span class="cap-t">Motorlar durdu!</span></div>
+    <div id="cap-3" class="clip cap cap-kaan" data-start="3.34" data-duration="1.0"><span class="cap-who" style="background:#35e0ff">KAAN</span><span class="cap-t">Dışarı bak!</span></div>
+    <div id="cap-4" class="clip cap cap-ece" data-start="4.75" data-duration="1.36"><span class="cap-who" style="background:#ff4fd8">ECE</span><span class="cap-t">Bu... bir kara delik!</span></div>
+    <div id="cap-5" class="clip cap cap-kaan" data-start="6.15" data-duration="1.49"><span class="cap-who" style="background:#35e0ff">KAAN</span><span class="cap-t">Bizi içine çekiyor!</span></div>
+    <div id="cap-6" class="clip cap cap-anl" data-start="9.35" data-duration="0.73"><span class="cap-t">Onları sadece</span></div>
+    <div id="cap-7" class="clip cap cap-anl" data-start="10.1" data-duration="1.35"><span class="cap-t">sen kurtarabilirsin.</span></div>
+    <div id="cap-8" class="clip cap cap-anl" data-start="12.45" data-duration="0.79"><span class="cap-t">Geç kalırsan...</span></div>
+    <div id="cap-9" class="clip cap cap-anl" data-start="13.26" data-duration="1.12"><span class="cap-t">sonun böyle olur.</span></div>
+    <div id="cap-10" class="clip cap cap-anl" data-start="16.0" data-duration="0.58"><span class="cap-t">Parmağınla</span></div>
+    <div id="cap-11" class="clip cap cap-anl" data-start="16.6" data-duration="1.04"><span class="cap-t">ışık yolu çiz.</span></div>
+    <div id="cap-12" class="clip cap cap-anl" data-start="18.2" data-duration="1.2"><span class="cap-t">Filoları ve mekikleri,</span></div>
+    <div id="cap-13" class="clip cap cap-anl" data-start="19.42" data-duration="0.6"><span class="cap-t">kaybolmadan</span></div>
+    <div id="cap-14" class="clip cap cap-anl" data-start="20.04" data-duration="0.92"><span class="cap-t">varmaları gereken</span></div>
+    <div id="cap-15" class="clip cap cap-anl" data-start="20.98" data-duration="0.81"><span class="cap-t">yere götür!</span></div>
+    <div id="cap-16" class="clip cap cap-anl" data-start="24.3" data-duration="0.67"><span class="cap-t">Işık Göçü.</span></div>
+    <div id="cap-17" class="clip cap cap-anl" data-start="24.99" data-duration="1.02"><span class="cap-t">Hemen indir!</span></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const G = [[0,0.25,0.95],[1,0.97,2.23],[2,2.25,3.32],[3,3.34,4.34],[4,4.75,6.11],[5,6.15,7.64],[6,9.35,10.08],[7,10.1,11.45],[8,12.45,13.24],[9,13.26,14.38],[10,16.0,16.58],[11,16.6,17.64],[12,18.2,19.4],[13,19.42,20.02],[14,20.04,20.96],[15,20.98,21.79],[16,24.3,24.97],[17,24.99,26.01]];
+      for (const [n, s, e] of G) {
+        const el = "#cap-" + n + " .cap-t";
+        tl.fromTo(el, { opacity: 0, scale: 0.82, y: 16 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "back.out(2.4)" }, s);
+        tl.to(el, { opacity: 0, duration: 0.1, ease: "power2.in" }, e - 0.1);
+        tl.set("#cap-" + n, { opacity: 0 }, e);
+      }
+      window.__timelines["altyazi"] = tl;
+    })();
+  </script>
+</template>

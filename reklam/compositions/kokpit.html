@@ -1,0 +1,154 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #0a0b14; }
+    #kp-cam { position: absolute; inset: -40px; }
+    #kp-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    #kp-alarm { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(255,40,40,.75), rgba(255,0,0,.18) 55%, rgba(120,0,0,.35)); mix-blend-mode: screen; }
+    #kp-hud { position: absolute; left: 0; right: 0; top: 230px; text-align: center; }
+    #kp-hud-in { display: inline-block; padding: 18px 34px; border: 4px solid #ff3b3b; border-radius: 14px; background: rgba(40,0,0,.72);
+      color: #ff5050; font: 900 58px/1 Inter, sans-serif; letter-spacing: .04em; text-shadow: 0 0 18px rgba(255,60,60,.9); }
+    #kp-hud-sub { margin-top: 14px; color: #ffb3b3; font: 700 32px/1 'JetBrains Mono', monospace; letter-spacing: .08em; }
+  </style>
+  <div id="root" data-composition-id="kokpit" data-width="1080" data-height="1920">
+    <div id="kp-cam">
+      <svg id="kp-svg" viewBox="-40 -40 1160 2000" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="kp-wall" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1b1f33"/><stop offset="1" stop-color="#0b0d18"/>
+          </linearGradient>
+          <radialGradient id="kp-space" cx=".5" cy=".5" r=".7">
+            <stop offset="0" stop-color="#ff9a3c"/><stop offset=".18" stop-color="#b03cff"/><stop offset=".55" stop-color="#1a0f45"/><stop offset="1" stop-color="#05060f"/>
+          </radialGradient>
+          <radialGradient id="kp-visor" cx=".35" cy=".3" r=".9">
+            <stop offset="0" stop-color="#3a4d7a" stop-opacity=".55"/><stop offset="1" stop-color="#0b1226" stop-opacity=".25"/>
+          </radialGradient>
+          <linearGradient id="kp-suit" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f4f6fb"/><stop offset="1" stop-color="#b9c0d4"/>
+          </linearGradient>
+        </defs>
+        <!-- kabin duvarı -->
+        <rect x="-40" y="-40" width="1160" height="2000" fill="url(#kp-wall)"/>
+        <g stroke="#2a3050" stroke-width="4" fill="none">
+          <path d="M-40 300 H1120 M-40 1500 H1120 M120 -40 V300 M960 -40 V300"/>
+        </g>
+        <!-- arkadaki pencere: dışarıdaki mor/turuncu ışık -->
+        <g id="kp-window">
+          <rect x="240" y="360" width="600" height="420" rx="80" fill="#2c3352"/>
+          <rect x="265" y="385" width="550" height="370" rx="64" fill="url(#kp-space)"/>
+          <circle cx="540" cy="570" r="54" fill="#000"/>
+          <circle cx="540" cy="570" r="60" fill="none" stroke="#ffd29a" stroke-width="5" opacity=".9"/>
+        </g>
+        <!-- konsol -->
+        <path d="M-40 1460 L180 1300 H900 L1120 1460 V1960 H-40Z" fill="#141829"/>
+        <path d="M180 1300 H900" stroke="#3a4266" stroke-width="6"/>
+        <g id="kp-leds">
+          <circle cx="260" cy="1380" r="14" fill="#ff3b3b"/><circle cx="320" cy="1380" r="14" fill="#ffae00"/>
+          <circle cx="380" cy="1380" r="14" fill="#ff3b3b"/><circle cx="700" cy="1380" r="14" fill="#ff3b3b"/>
+          <circle cx="760" cy="1380" r="14" fill="#35e0ff"/><circle cx="820" cy="1380" r="14" fill="#ff3b3b"/>
+          <rect x="430" y="1350" width="220" height="80" rx="10" fill="#1d0b10" stroke="#ff3b3b" stroke-width="3"/>
+        </g>
+
+        <!-- KAAN (sol) -->
+        <g id="kp-kaan" transform="translate(300 1010)">
+          <path d="M-250 420 C-250 230 -170 170 0 170 C170 170 250 230 250 420Z" fill="url(#kp-suit)"/>
+          <rect x="-70" y="230" width="140" height="70" rx="12" fill="#2b5fd9"/>
+          <circle cx="-40" cy="265" r="12" fill="#ff3b3b"/><circle cx="0" cy="265" r="12" fill="#35e0ff"/><circle cx="40" cy="265" r="12" fill="#ffd200"/>
+          <circle r="215" fill="url(#kp-suit)"/>
+          <g id="kp-kaan-head">
+            <ellipse cx="0" cy="10" rx="165" ry="150" fill="#10182e"/>
+            <g id="kp-kaan-face">
+              <ellipse cx="0" cy="20" rx="112" ry="122" fill="#e2a982"/>
+              <path d="M-112 -10 C-110 -95 -50 -112 0 -112 C60 -112 112 -92 112 -10 C90 -60 40 -74 0 -70 C-40 -74 -90 -60 -112 -10Z" fill="#2a1a12"/>
+              <g id="kp-kaan-eyes">
+                <ellipse cx="-42" cy="10" rx="24" ry="28" fill="#fff"/><ellipse cx="42" cy="10" rx="24" ry="28" fill="#fff"/>
+                <circle id="kp-kaan-pl" cx="-42" cy="12" r="11" fill="#1a1a1a"/><circle id="kp-kaan-pr" cx="42" cy="12" r="11" fill="#1a1a1a"/>
+              </g>
+              <path d="M-74 -22 C-56 -34 -34 -42 -16 -46 M74 -22 C56 -34 34 -42 16 -46" stroke="#2a1a12" stroke-width="10" stroke-linecap="round"/>
+              <ellipse id="kp-kaan-mouth" cx="0" cy="78" rx="30" ry="30" fill="#4a0f12"/>
+            </g>
+            <ellipse cx="0" cy="10" rx="165" ry="150" fill="url(#kp-visor)"/>
+            <path d="M-120 -80 C-80 -125 -20 -138 30 -132" stroke="#fff" stroke-width="12" stroke-linecap="round" opacity=".55" fill="none"/>
+          </g>
+        </g>
+
+        <!-- ECE (sağ) -->
+        <g id="kp-ece" transform="translate(790 1060)">
+          <path d="M-240 400 C-240 220 -165 160 0 160 C165 160 240 220 240 400Z" fill="url(#kp-suit)"/>
+          <rect x="-66" y="220" width="132" height="66" rx="12" fill="#c2309b"/>
+          <circle cx="-36" cy="253" r="11" fill="#35e0ff"/><circle cx="0" cy="253" r="11" fill="#fff"/><circle cx="36" cy="253" r="11" fill="#ff3b3b"/>
+          <circle r="205" fill="url(#kp-suit)"/>
+          <g id="kp-ece-head">
+            <ellipse cx="0" cy="10" rx="158" ry="144" fill="#10182e"/>
+            <g id="kp-ece-face">
+              <path d="M-128 120 C-150 20 -130 -110 0 -118 C130 -110 150 20 128 120 Z" fill="#5b2a17"/>
+              <ellipse cx="0" cy="22" rx="102" ry="114" fill="#f0c3a0"/>
+              <path d="M-104 0 C-100 -86 -40 -104 10 -104 C70 -100 104 -70 104 -10 C70 -60 20 -44 -20 -70 C-50 -40 -80 -40 -104 0Z" fill="#5b2a17"/>
+              <g id="kp-ece-eyes">
+                <ellipse cx="-38" cy="14" rx="23" ry="28" fill="#fff"/><ellipse cx="38" cy="14" rx="23" ry="28" fill="#fff"/>
+                <circle id="kp-ece-pl" cx="-38" cy="16" r="11" fill="#2a1a10"/><circle id="kp-ece-pr" cx="38" cy="16" r="11" fill="#2a1a10"/>
+                <path d="M-64 -6 L-58 -14 M64 -6 L58 -14" stroke="#2a1a10" stroke-width="5" stroke-linecap="round"/>
+              </g>
+              <path d="M-66 -16 C-50 -28 -30 -36 -14 -40 M66 -16 C50 -28 30 -36 14 -40" stroke="#5b2a17" stroke-width="9" stroke-linecap="round"/>
+              <ellipse id="kp-ece-mouth" cx="0" cy="80" rx="26" ry="28" fill="#5c1420"/>
+            </g>
+            <ellipse cx="0" cy="10" rx="158" ry="144" fill="url(#kp-visor)"/>
+            <path d="M-112 -76 C-72 -120 -16 -132 30 -126" stroke="#fff" stroke-width="12" stroke-linecap="round" opacity=".55" fill="none"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div id="kp-alarm"></div>
+    <div id="kp-hud">
+      <div id="kp-hud-in">⚠ KONTROL KAYBI</div>
+      <div id="kp-hud-sub">NAVİGASYON: ÇEVRİMDIŞI</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      function rng(seed) { return function () { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+      const r = rng(7);
+
+      // kırmızı alarm nabzı (sonlu tekrar)
+      tl.fromTo("#kp-alarm", { opacity: 0.9 }, { opacity: 0.25, duration: 0.42, ease: "sine.inOut", yoyo: true, repeat: 10 }, 0);
+      tl.fromTo("#kp-hud-in", { scale: 1 }, { scale: 1.06, duration: 0.42, ease: "sine.inOut", yoyo: true, repeat: 10 }, 0);
+      tl.fromTo("#kp-leds", { opacity: 1 }, { opacity: 0.35, duration: 0.21, ease: "steps(1)", yoyo: true, repeat: 21 }, 0);
+
+      // kamera sarsıntısı: tohumlu rastgele adımlar
+      let t = 0;
+      while (t < 4.6) {
+        const amp = t < 3.6 ? 10 : 18;
+        tl.to("#kp-cam", { x: (r() - 0.5) * 2 * amp, y: (r() - 0.5) * 2 * amp, rotation: (r() - 0.5) * 0.8, duration: 0.08, ease: "none" }, t);
+        t += 0.08;
+      }
+
+      // ağız hareketi: konuşma süresince tohumlu açılıp kapanma
+      function talk(sel, start, end, base) {
+        let k = start;
+        while (k < end) {
+          tl.to(sel, { scaleY: 0.35 + r() * 1.1, duration: 0.085, ease: "none", transformOrigin: "50% 50%" }, k);
+          k += 0.09;
+        }
+        tl.to(sel, { scaleY: base, duration: 0.1, ease: "power1.out", transformOrigin: "50% 50%" }, end);
+      }
+      tl.set(["#kp-ece-mouth", "#kp-kaan-mouth"], { scaleY: 0.6, transformOrigin: "50% 50%" }, 0);
+      talk("#kp-ece-mouth", 0.25, 2.05, 0.9);   // "Ne oluyor?! Nereye gidiyoruz?"
+      talk("#kp-kaan-mouth", 2.25, 4.1, 1.1);   // "Motorlar durdu! Dışarı bak!"
+
+      // Ece önce sağa sola panikle bakar
+      tl.fromTo(["#kp-ece-pl", "#kp-ece-pr"], { x: -8 }, { x: 8, duration: 0.3, ease: "power2.inOut", yoyo: true, repeat: 5 }, 0.1);
+      tl.fromTo("#kp-ece-head", { rotation: -4 }, { rotation: 4, duration: 0.45, ease: "sine.inOut", yoyo: true, repeat: 3, transformOrigin: "50% 80%" }, 0.1);
+      // Kaan konuşmaya başlarken Ece'ye döner
+      tl.fromTo(["#kp-kaan-pl", "#kp-kaan-pr"], { x: 0 }, { x: 10, duration: 0.18, ease: "power2.out" }, 2.2);
+      // "Dışarı bak!" ile ikisi de geriye, pencereye döner (göz yukarı)
+      tl.to(["#kp-kaan-pl", "#kp-kaan-pr", "#kp-ece-pl", "#kp-ece-pr"], { y: -12, x: 0, duration: 0.2, ease: "back.out(2)" }, 3.15);
+      tl.to("#kp-kaan-head", { rotation: 6, y: -10, duration: 0.3, ease: "power3.out", transformOrigin: "50% 80%" }, 3.15);
+      tl.to("#kp-ece-head", { rotation: -6, y: -12, duration: 0.32, ease: "power3.out", transformOrigin: "50% 80%" }, 3.22);
+
+      // pencereye itiş ve kesme
+      tl.fromTo("#kp-svg", { scale: 1 }, { scale: 2.4, duration: 0.85, ease: "power3.in", transformOrigin: "50% 29%" }, 3.75);
+      tl.to("#kp-hud", { opacity: 0, y: -40, duration: 0.25, ease: "power2.in" }, 3.9);
+      window.__timelines["kokpit"] = tl;
+    })();
+  </script>
+</template>

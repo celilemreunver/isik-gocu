@@ -1,0 +1,191 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(ellipse at 50% 30%, #1d1658 0%, #0b0a2a 50%, #04050d 100%); }
+    #oy-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    #oy-count { position: absolute; left: 80px; top: 196px; color: #e8ecff; font: 800 40px/1 Inter, sans-serif; letter-spacing: .04em; }
+    #oy-count b { color: #35e0ff; }
+    #oy-win { position: absolute; left: 0; right: 0; top: 560px; text-align: center; color: #fff;
+      font: 900 118px/1 Montserrat, sans-serif; text-shadow: 0 0 20px rgba(255,79,216,.95), 0 0 60px rgba(53,224,255,.7); }
+  </style>
+  <div id="root" data-composition-id="oyun" data-width="1080" data-height="1920">
+    <svg id="oy-svg" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="oy-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <radialGradient id="oy-bhg" cx=".5" cy=".5" r=".5">
+          <stop offset=".45" stop-color="#000"/><stop offset=".55" stop-color="#ffb070"/><stop offset=".7" stop-color="#b04cff" stop-opacity=".6"/><stop offset="1" stop-color="#b04cff" stop-opacity="0"/>
+        </radialGradient>
+        <g id="oy-chev"><path d="M-18 -13 L14 0 L-18 13 L-9 0Z"/></g>
+      </defs>
+      <g id="oy-stars" fill="#fff"></g>
+
+      <!-- takımyıldız (üstte) -->
+      <g id="oy-const" transform="translate(700 236)">
+        <path id="oy-cl1" d="M0 0 L90 -30" stroke="#ffe48a" stroke-width="4" opacity="0"/>
+        <path id="oy-cl2" d="M90 -30 L200 10" stroke="#ffe48a" stroke-width="4" opacity="0"/>
+        <circle id="oy-cs0" cx="0" cy="0" r="9" fill="#5a5f86"/>
+        <circle id="oy-cs1" cx="90" cy="-30" r="9" fill="#5a5f86"/>
+        <circle id="oy-cs2" cx="200" cy="10" r="9" fill="#5a5f86"/>
+      </g>
+
+      <!-- kara delik -->
+      <g id="oy-bh" transform="translate(540 840)">
+        <circle r="170" fill="url(#oy-bhg)"/>
+        <g id="oy-bh-disk" fill="none">
+          <ellipse rx="150" ry="44" stroke="#ff9a4c" stroke-width="10" opacity=".85"/>
+          <ellipse rx="185" ry="54" stroke="#b04cff" stroke-width="6" opacity=".5"/>
+        </g>
+        <circle r="78" fill="#000"/>
+        <circle r="82" fill="none" stroke="#ffd9a8" stroke-width="5"/>
+      </g>
+
+      <!-- istasyonlar: parçalı halkalar -->
+      <g id="oy-st-pink" transform="translate(830 470)" filter="url(#oy-glow)" stroke="#ff4fd8">
+        <circle r="46" fill="none" stroke-width="11"/>
+        <g class="oy-seg" fill="none" stroke-width="13"><path d="M0 -74 A74 74 0 0 1 52 -52"/><path d="M74 0 A74 74 0 0 1 52 52"/><path d="M0 74 A74 74 0 0 1 -52 52"/><path d="M-74 0 A74 74 0 0 1 -52 -52"/></g>
+      </g>
+      <g id="oy-st-cyan" transform="translate(230 400)" filter="url(#oy-glow)" stroke="#35e0ff">
+        <circle r="46" fill="none" stroke-width="11"/>
+        <g class="oy-seg" fill="none" stroke-width="13"><path d="M0 -74 A74 74 0 0 1 52 -52"/><path d="M74 0 A74 74 0 0 1 52 52"/><path d="M0 74 A74 74 0 0 1 -52 52"/><path d="M-74 0 A74 74 0 0 1 -52 -52"/></g>
+      </g>
+      <g id="oy-st-yel" transform="translate(560 1100)" filter="url(#oy-glow)" stroke="#ffd23c">
+        <circle r="46" fill="none" stroke-width="11"/>
+        <g class="oy-seg" fill="none" stroke-width="13"><path d="M0 -74 A74 74 0 0 1 52 -52"/><path d="M74 0 A74 74 0 0 1 52 52"/><path d="M0 74 A74 74 0 0 1 -52 52"/><path d="M-74 0 A74 74 0 0 1 -52 -52"/></g>
+      </g>
+
+      <!-- ışık yolları (parmakla çizilen) -->
+      <path id="oy-pA" d="M150 1000 C100 760 250 580 520 510 S770 470 790 470" fill="none" stroke="#ff8ae6" stroke-width="10" stroke-linecap="round" filter="url(#oy-glow)"/>
+      <path id="oy-pB" d="M930 1030 C1010 800 880 560 620 450 S320 380 268 400" fill="none" stroke="#7fefff" stroke-width="10" stroke-linecap="round" filter="url(#oy-glow)"/>
+      <path id="oy-pC" d="M790 800 C920 930 840 1090 600 1100" fill="none" stroke="#ffe27a" stroke-width="10" stroke-linecap="round" filter="url(#oy-glow)"/>
+
+      <!-- filolar -->
+      <g id="oy-fA" fill="#ffb3f0" filter="url(#oy-glow)"><use href="#oy-chev"/><use href="#oy-chev"/><use href="#oy-chev"/><use href="#oy-chev"/></g>
+      <g id="oy-fB" fill="#b8f6ff" filter="url(#oy-glow)"><use href="#oy-chev"/><use href="#oy-chev"/><use href="#oy-chev"/><use href="#oy-chev"/></g>
+      <g id="oy-fC" fill="#ffe9a0" filter="url(#oy-glow)"><use href="#oy-chev"/><use href="#oy-chev"/><use href="#oy-chev"/></g>
+      <circle id="oy-danger" cx="0" cy="0" r="70" fill="none" stroke="#ff3b3b" stroke-width="6" opacity="0"/>
+
+      <!-- teslimat patlamaları -->
+      <circle id="oy-boomA" cx="830" cy="470" r="60" fill="none" stroke="#ff4fd8" stroke-width="8" opacity="0"/>
+      <circle id="oy-boomB" cx="230" cy="400" r="60" fill="none" stroke="#35e0ff" stroke-width="8" opacity="0"/>
+      <circle id="oy-boomC" cx="560" cy="1100" r="60" fill="none" stroke="#ffd23c" stroke-width="8" opacity="0"/>
+
+      <!-- parmak -->
+      <g id="oy-finger" opacity="0">
+        <circle r="44" fill="rgba(255,255,255,.18)" stroke="#fff" stroke-width="4"/>
+        <circle r="14" fill="#fff"/>
+      </g>
+    </svg>
+    <div id="oy-count">TESLİMAT <b id="oy-n">0</b>/3</div>
+    <div id="oy-win">MÜKEMMEL!</div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const $ = (id) => document.getElementById(id);
+      function rng(seed) { return function () { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+      const r = rng(21), sg = $("oy-stars");
+      for (let i = 0; i < 170; i++) {
+        const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        c.setAttribute("cx", (r() * 1080).toFixed(1)); c.setAttribute("cy", (r() * 1920).toFixed(1));
+        c.setAttribute("r", (0.7 + r() * 2).toFixed(1)); c.setAttribute("opacity", (0.25 + r() * 0.6).toFixed(2));
+        sg.appendChild(c);
+      }
+      const clamp = (v) => Math.max(0, Math.min(1, v));
+      const ramp = (t, a, b) => clamp((t - a) / (b - a));
+      const ease = (x) => x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+
+      const P = { A: $("oy-pA"), B: $("oy-pB"), C: $("oy-pC") };
+      const L = {}, S = {}, N = 600;
+      for (const k in P) {
+        L[k] = P[k].getTotalLength(); P[k].style.strokeDasharray = L[k]; S[k] = [];
+        for (let i = 0; i <= N; i++) { const p = P[k].getPointAtLength(L[k] * i / N); S[k].push([p.x, p.y]); }
+      }
+      function at(k, u) {
+        const f = clamp(u) * N, i = Math.min(N - 1, Math.floor(f)), w = f - i, a = S[k][i], b = S[k][i + 1];
+        return { x: a[0] + (b[0] - a[0]) * w, y: a[1] + (b[1] - a[1]) * w, a: Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI };
+      }
+
+      // zamanlama (sahne saniyesi)
+      const plan = {
+        A: { draw: [0.35, 1.45], go: [1.4, 3.1], fade: 3.2 },
+        B: { draw: [2.45, 3.35], go: [3.3, 4.9], fade: 5.0 },
+        C: { draw: [4.55, 5.15], go: [5.1, 6.45], fade: 6.55 },
+      };
+      const fleets = { A: $("oy-fA"), B: $("oy-fB"), C: $("oy-fC") };
+      const seen = { A: 0, B: 0, C: 0 };
+
+      function update(t) {
+        // yol çizimi + parmak
+        let finger = null;
+        for (const k of ["A", "B", "C"]) {
+          const pl = plan[k];
+          const d = ease(ramp(t, pl.draw[0], pl.draw[1]));
+          P[k].style.strokeDashoffset = L[k] * (1 - d);
+          P[k].style.opacity = t < pl.draw[0] ? 0 : (t > pl.fade ? Math.max(0, 1 - (t - pl.fade) / 0.3) : 1);
+          if (t >= pl.draw[0] - 0.15 && t <= pl.draw[1] + 0.15) finger = at(k, d);
+        }
+        const fg = $("oy-finger");
+        if (finger) { fg.setAttribute("transform", `translate(${finger.x} ${finger.y})`); fg.setAttribute("opacity", 1); }
+        else fg.setAttribute("opacity", 0);
+
+        // filolar
+        for (const k of ["A", "B", "C"]) {
+          const pl = plan[k], uses = fleets[k].children;
+          const g = ramp(t, pl.go[0], pl.go[1]);
+          for (let i = 0; i < uses.length; i++) {
+            let x, y, a, op = 1;
+            if (g <= 0) {
+              // bekleme: yolun başında kümelenmiş, hafif salınım
+              const s = at(k, 0);
+              let ox = 0, oy = 0;
+              if (k === "C") { // C kara deliğe doğru kayıyor
+                const drift = ramp(t, 0, 4.6);
+                ox = 110 * (1 - drift) * 0.7; oy = -40 * (1 - drift);
+              }
+              x = s.x + ox - i * 30 + Math.sin(t * 3 + i) * 5; y = s.y + oy + i * 18 + Math.cos(t * 2.6 + i) * 5; a = s.a;
+              if (k === "C") a = Math.atan2(840 - y, 540 - x) * 180 / Math.PI;
+            } else {
+              const u = clamp(ease(g) * 1.12 - i * 0.04);
+              const p = at(k, u); x = p.x; y = p.y; a = p.a;
+              if (u >= 0.999) op = 0;
+            }
+            uses[i].setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${a.toFixed(1)})`);
+            uses[i].setAttribute("opacity", op);
+          }
+        }
+        // C için tehlike halkası
+        const dz = $("oy-danger"), c0 = at("C", 0);
+        dz.setAttribute("transform", `translate(${c0.x} ${c0.y})`);
+        dz.setAttribute("opacity", t > 3.6 && t < 4.8 ? (Math.floor(t * 8) % 2 ? 1 : 0.3) : 0);
+
+        // sayaç
+        const n = (t >= plan.A.go[1] ? 1 : 0) + (t >= plan.B.go[1] ? 1 : 0) + (t >= plan.C.go[1] ? 1 : 0);
+        $("oy-n").textContent = n;
+        for (let i = 0; i < 3; i++) $("oy-cs" + i).setAttribute("fill", n > i ? "#ffe48a" : "#5a5f86");
+        $("oy-cl1").setAttribute("opacity", n >= 2 ? 1 : 0);
+        $("oy-cl2").setAttribute("opacity", n >= 3 ? 1 : 0);
+        $("oy-bh-disk").setAttribute("transform", `rotate(-12)`);
+      }
+      const st = { t: 0 };
+      tl.fromTo(st, { t: 0 }, { t: 8.4, duration: 8.4, ease: "none", onUpdate: () => update(st.t) }, 0);
+      update(0);
+
+      // istasyonlar döner
+      tl.fromTo("#oy-svg .oy-seg", { rotation: 0, transformOrigin: "50% 50%" }, { rotation: 120, duration: 8.4, ease: "none" }, 0);
+      // teslimat patlamaları
+      [["#oy-boomA", "#oy-st-pink", plan.A.go[1]], ["#oy-boomB", "#oy-st-cyan", plan.B.go[1]], ["#oy-boomC", "#oy-st-yel", plan.C.go[1]]].forEach(([b, s, t]) => {
+        tl.fromTo(b, { opacity: 1, scale: 1, transformOrigin: "50% 50%" }, { opacity: 0, scale: 2.4, duration: 0.5, ease: "power2.out" }, t);
+        tl.fromTo(s, { scale: 1 }, { scale: 1.25, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", svgOrigin: "0 0" }, t);
+      });
+      tl.fromTo("#oy-count", { scale: 1 }, { scale: 1.15, duration: 0.12, yoyo: true, repeat: 1, transformOrigin: "0% 50%" }, plan.A.go[1]);
+      tl.to("#oy-count", { scale: 1.15, duration: 0.12, yoyo: true, repeat: 1, transformOrigin: "0% 50%" }, plan.B.go[1]);
+      tl.to("#oy-count", { scale: 1.15, duration: 0.12, yoyo: true, repeat: 1, transformOrigin: "0% 50%" }, plan.C.go[1]);
+      // takımyıldız tamamlandı
+      tl.fromTo("#oy-win", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.2)" }, 6.7);
+      tl.to("#oy-win", { opacity: 0, y: -30, duration: 0.25, ease: "power2.in" }, 8.0);
+      tl.fromTo("#oy-const", { scale: 1, svgOrigin: "800 236" }, { scale: 1.3, duration: 0.2, yoyo: true, repeat: 1, svgOrigin: "800 236" }, 6.5);
+      window.__timelines["oyun"] = tl;
+    })();
+  </script>
+</template>
