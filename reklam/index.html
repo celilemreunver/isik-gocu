@@ -27,8 +27,10 @@
         data-start="9" data-duration="3.2" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:1"></div>
       <div id="rus" data-composition-id="rus" data-composition-src="compositions/rus.html"
         data-start="12.2" data-duration="3.4" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:1"></div>
-      <div id="oyun" data-composition-id="oyun" data-composition-src="compositions/oyun.html"
-        data-start="15.6" data-duration="8.4" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:1"></div>
+      <!-- Gerçek oynanış kaydı (iPhone ekran kaydı) -->
+      <video id="oyun-video" class="clip" src="assets/oyun.mp4" data-start="15.6" data-duration="8.4" data-media-start="0.6"
+        data-track-index="1" muted style="position:absolute;inset:0;width:1080px;height:1920px;object-fit:cover;z-index:1"></video>
+      <audio id="oyun-ses" src="assets/oyun-ses.m4a" data-start="15.6" data-duration="8.4" data-media-start="0.6" data-track-index="4" data-volume="0.35" data-fade-out="0.4"></audio>
       <div id="son" data-composition-id="son" data-composition-src="compositions/son.html"
         data-start="24" data-duration="3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:1"></div>
 
