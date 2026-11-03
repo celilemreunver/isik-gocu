@@ -110,14 +110,14 @@
       const r = rng(7);
 
       // kırmızı alarm nabzı (sonlu tekrar)
-      tl.fromTo("#kp-alarm", { opacity: 0.9 }, { opacity: 0.25, duration: 0.42, ease: "sine.inOut", yoyo: true, repeat: 10 }, 0);
-      tl.fromTo("#kp-hud-in", { scale: 1 }, { scale: 1.06, duration: 0.42, ease: "sine.inOut", yoyo: true, repeat: 10 }, 0);
-      tl.fromTo("#kp-leds", { opacity: 1 }, { opacity: 0.35, duration: 0.21, ease: "steps(1)", yoyo: true, repeat: 21 }, 0);
+      tl.fromTo("#kp-alarm", { opacity: 0.9 }, { opacity: 0.25, duration: 0.42, ease: "sine.inOut", yoyo: true, repeat: 15 }, 0);
+      tl.fromTo("#kp-hud-in", { scale: 1 }, { scale: 1.06, duration: 0.42, ease: "sine.inOut", yoyo: true, repeat: 15 }, 0);
+      tl.fromTo("#kp-leds", { opacity: 1 }, { opacity: 0.35, duration: 0.21, ease: "steps(1)", yoyo: true, repeat: 31 }, 0);
 
       // kamera sarsıntısı: tohumlu rastgele adımlar
       let t = 0;
-      while (t < 4.6) {
-        const amp = t < 3.6 ? 10 : 18;
+      while (t < 6.8) {
+        const amp = t < 5.8 ? 10 : 18;
         tl.to("#kp-cam", { x: (r() - 0.5) * 2 * amp, y: (r() - 0.5) * 2 * amp, rotation: (r() - 0.5) * 0.8, duration: 0.08, ease: "none" }, t);
         t += 0.08;
       }
@@ -132,22 +132,22 @@
         tl.to(sel, { scaleY: base, duration: 0.1, ease: "power1.out", transformOrigin: "50% 50%" }, end);
       }
       tl.set(["#kp-ece-mouth", "#kp-kaan-mouth"], { scaleY: 0.6, transformOrigin: "50% 50%" }, 0);
-      talk("#kp-ece-mouth", 0.25, 2.05, 0.9);   // "Ne oluyor?! Nereye gidiyoruz?"
-      talk("#kp-kaan-mouth", 2.25, 4.1, 1.1);   // "Motorlar durdu! Dışarı bak!"
+      talk("#kp-ece-mouth", 0.2, 3.75, 0.9);   // "Ne oluyor?! Nereye gidiyoruz?"
+      talk("#kp-kaan-mouth", 3.9, 6.8, 1.1);   // "Motorlar durdu! Dışarı bak!"
 
       // Ece önce sağa sola panikle bakar
-      tl.fromTo(["#kp-ece-pl", "#kp-ece-pr"], { x: -8 }, { x: 8, duration: 0.3, ease: "power2.inOut", yoyo: true, repeat: 5 }, 0.1);
-      tl.fromTo("#kp-ece-head", { rotation: -4 }, { rotation: 4, duration: 0.45, ease: "sine.inOut", yoyo: true, repeat: 3, transformOrigin: "50% 80%" }, 0.1);
+      tl.fromTo(["#kp-ece-pl", "#kp-ece-pr"], { x: -8 }, { x: 8, duration: 0.3, ease: "power2.inOut", yoyo: true, repeat: 9 }, 0.1);
+      tl.fromTo("#kp-ece-head", { rotation: -4 }, { rotation: 4, duration: 0.45, ease: "sine.inOut", yoyo: true, repeat: 6, transformOrigin: "50% 80%" }, 0.1);
       // Kaan konuşmaya başlarken Ece'ye döner
-      tl.fromTo(["#kp-kaan-pl", "#kp-kaan-pr"], { x: 0 }, { x: 10, duration: 0.18, ease: "power2.out" }, 2.2);
+      tl.fromTo(["#kp-kaan-pl", "#kp-kaan-pr"], { x: 0 }, { x: 10, duration: 0.18, ease: "power2.out" }, 3.85);
       // "Dışarı bak!" ile ikisi de geriye, pencereye döner (göz yukarı)
-      tl.to(["#kp-kaan-pl", "#kp-kaan-pr", "#kp-ece-pl", "#kp-ece-pr"], { y: -12, x: 0, duration: 0.2, ease: "back.out(2)" }, 3.15);
-      tl.to("#kp-kaan-head", { rotation: 6, y: -10, duration: 0.3, ease: "power3.out", transformOrigin: "50% 80%" }, 3.15);
-      tl.to("#kp-ece-head", { rotation: -6, y: -12, duration: 0.32, ease: "power3.out", transformOrigin: "50% 80%" }, 3.22);
+      tl.to(["#kp-kaan-pl", "#kp-kaan-pr", "#kp-ece-pl", "#kp-ece-pr"], { y: -12, x: 0, duration: 0.2, ease: "back.out(2)" }, 5.95);
+      tl.to("#kp-kaan-head", { rotation: 6, y: -10, duration: 0.3, ease: "power3.out", transformOrigin: "50% 80%" }, 5.95);
+      tl.to("#kp-ece-head", { rotation: -6, y: -12, duration: 0.32, ease: "power3.out", transformOrigin: "50% 80%" }, 6.02);
 
       // pencereye itiş ve kesme
-      tl.fromTo("#kp-svg", { scale: 1 }, { scale: 2.4, duration: 0.85, ease: "power3.in", transformOrigin: "50% 29%" }, 3.75);
-      tl.to("#kp-hud", { opacity: 0, y: -40, duration: 0.25, ease: "power2.in" }, 3.9);
+      tl.fromTo("#kp-svg", { scale: 1 }, { scale: 2.4, duration: 0.85, ease: "power3.in", transformOrigin: "50% 29%" }, 6.0);
+      tl.to("#kp-hud", { opacity: 0, y: -40, duration: 0.25, ease: "power2.in" }, 6.15);
       window.__timelines["kokpit"] = tl;
     })();
   </script>

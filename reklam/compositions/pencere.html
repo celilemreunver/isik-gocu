@@ -54,7 +54,7 @@
       for (let i = 0; i < 520; i++) stars.push({ a: r() * Math.PI * 2, d: 140 + Math.pow(r(), 0.7) * 1100, s: 0.6 + r() * 2.2, b: 0.4 + r() * 0.6, h: r() });
 
       function draw(t) {
-        const p = Math.min(1, t / 3.9);
+        const p = Math.min(1, t / 7.1);
         const R = 70 + 300 * Math.pow(p, 1.6);
         const sx = Math.sin(t * 53) * (4 + 14 * p), sy = Math.cos(t * 41) * (4 + 14 * p);
         ctx.setTransform(1, 0, 0, 1, sx, sy);
@@ -105,17 +105,17 @@
       }
 
       const st = { t: 0 };
-      tl.fromTo(st, { t: 0 }, { t: 4.4, duration: 4.4, ease: "none", onUpdate: () => draw(st.t) }, 0);
+      tl.fromTo(st, { t: 0 }, { t: 7.6, duration: 7.6, ease: "none", onUpdate: () => draw(st.t) }, 0);
       draw(0);
 
-      tl.fromTo("#pc-hud-t", { scale: 1 }, { scale: 1.07, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 9 }, 0);
+      tl.fromTo("#pc-hud-t", { scale: 1 }, { scale: 1.07, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 22 }, 0);
       // kasklar öne eğilir: korku
       tl.fromTo("#pc-helmets", { y: 40 }, { y: 0, duration: 0.5, ease: "power3.out" }, 0);
-      tl.to("#pc-helmets", { y: 30, duration: 0.4, ease: "power2.in" }, 2.9);
+      tl.to("#pc-helmets", { y: 30, duration: 0.4, ease: "power2.in" }, 6.0);
       // dalış: çerçeve dağılır, beyaz flaş
-      tl.to(["#pc-frame", "#pc-hud"], { opacity: 0, duration: 0.35, ease: "power2.in" }, 3.0);
-      tl.fromTo("#pc-canvas", { scale: 1 }, { scale: 3.2, duration: 1.0, ease: "power4.in", transformOrigin: "50% 44.8%" }, 3.0);
-      tl.fromTo("#pc-flash", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.in" }, 3.95);
+      tl.to(["#pc-frame", "#pc-hud"], { opacity: 0, duration: 0.35, ease: "power2.in" }, 6.2);
+      tl.fromTo("#pc-canvas", { scale: 1 }, { scale: 3.2, duration: 1.0, ease: "power4.in", transformOrigin: "50% 44.8%" }, 6.2);
+      tl.fromTo("#pc-flash", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.in" }, 7.15);
       window.__timelines["pencere"] = tl;
     })();
   </script>
