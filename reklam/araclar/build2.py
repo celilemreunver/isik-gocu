@@ -10,14 +10,13 @@ def speech_segs(f, d):
         cur=b
     if d-cur>0.05: segs.append([cur,d])
     return segs
-L=[("v1","mert",0.12,[("Ne oluyor?!",0,0.44),("Nereye gidiyoruz?!",0.71,1.50)]),
-   ("v2","kaan",1.7,[("Motorlar durdu!",0,0.77),("Mert... dışarı bak!",1.12,2.22)]),
-   ("v3","mert",4.15,[("Kara delik!",0,0.78),("Bizi içine çekiyor!",1.09,2.30)]),
-   ("v5","anl",7.2,[("Onları kurtarabilecek",0,1.46),("tek kişi...",1.68,2.50),("sensin.",2.96,3.80)]),
-   ("v6","anl",11.6,[("Geç kalırsan...",0,0.86),("sonun böyle olur.",1.18,2.37)]),
-   ("v7","anl",14.95,[("Parmağınla ışık yolunu çiz!",0,1.76),("Filoları ve uzay mekiklerini,",2.22,3.81),("kaybolmadan evlerine ulaştır!",4.03,5.80)]),
-   ("v8","anl",21.4,[("Kara deliklere dikkat et...",0.28,1.40),("ve gizli takımyıldızları keşfet!",1.71,3.35)]),
-   ("v9","anl",25.45,[("Işık Göçü.",0,0.78),("Hemen indir!",1.21,1.82)])]
+L=[("v1","mert",0.12,[("Ne oluyor?!",0,0.43),("Nereye gidiyoruz?!",0.71,1.40)]),
+   ("v2","kaan",1.7,[("Motorlar durdu!",0,0.76),("Mert... dışarı bak!",1.12,2.12)]),
+   ("v3","mert",4.15,[("Kara delik!",0,0.77),("Bizi içine çekiyor!",1.10,2.19)]),
+   ("v5","anl",7.2,[("Onları kurtarabilecek",0,1.37),("tek kişi...",1.68,2.49),("sensin.",2.96,3.80)]),
+   ("v7","anl",11.75,[("Parmağınla ışık yolunu çiz!",0,1.76),("Filoları ve uzay mekiklerini,",2.23,3.80),("kaybolmadan evlerine ulaştır!",4.03,5.78)]),
+   ("v8","anl",18.25,[("Kara deliklere dikkat et...",0.28,1.40),("ve gizli takımyıldızları keşfet!",1.71,3.34)]),
+   ("v9","anl",22.25,[("Işık Göçü.",0,0.78),("Hemen indir!",1.21,1.82)])]
 groups=[]; audio=[]
 for lid,who,st,gs in L:
     f=f"{P}/assets/vo/{lid}.wav"; d=dur(f)
@@ -40,13 +39,13 @@ c=re.sub(r"const G = \[.*?\];", "const G = ["+",".join(js)+"];", c)
 open(f"{P}/compositions/altyazi.html","w").write(c)
 
 s=open(f"{P}/index.html").read()
-s=re.sub(r'      <audio id="vo-l\d".*?</audio>\n', "", s)
+s=re.sub(r'      <audio id="vo-[lv]\d".*?</audio>\n', '', s)
 s=s.replace("    </div>\n    <script>", "\n".join(audio)+"\n    </div>\n    <script>",1)
-rep={'id="kokpit"':("0","3.9"),'id="pencere"':("3.9","3.1"),'id="logo"':("7","4.5"),'id="rus"':("11.5","3.2"),'id="son"':("25.3","3")}
+rep={'id="kokpit"':("0","3.9"),'id="pencere"':("3.9","3.1"),'id="logo"':("7","4.5"),'id="son"':("22.1","3")}
 for k,(a,b) in rep.items():
     s=re.sub(rf'({k}[^>]*?data-start=")[\d.]+(" data-duration=")[\d.]+', rf'\g<1>{a}\g<2>{b}', s, flags=re.S)
-s=re.sub(r'(id="oyun-video"[^>]*?data-start=")[\d.]+(" data-duration=")[\d.]+', r'\g<1>14.7\g<2>10.6', s, flags=re.S)
-s=re.sub(r'(id="oyun-ses"[^>]*?data-start=")[\d.]+(" data-duration=")[\d.]+', r'\g<1>14.7\g<2>10.6', s, flags=re.S)
-s=re.sub(r'(id="root" data-composition-id="main" data-start="0" data-duration=")[\d.]+', r'\g<1>28.3', s)
-s=re.sub(r'(id="altyazi"[^>]*?data-duration=")[\d.]+', r'\g<1>28.3', s, flags=re.S)
+s=re.sub(r'(id="oyun-video"[^>]*?data-start=")[\d.]+(" data-duration=")[\d.]+', r'\g<1>11.5\g<2>10.6', s, flags=re.S)
+s=re.sub(r'(id="oyun-ses"[^>]*?data-start=")[\d.]+(" data-duration=")[\d.]+', r'\g<1>11.5\g<2>10.6', s, flags=re.S)
+s=re.sub(r'(id="root" data-composition-id="main" data-start="0" data-duration=")[\d.]+', r'\g<1>25.1', s)
+s=re.sub(r'(id="altyazi"[^>]*?data-duration=")[\d.]+', r'\g<1>25.1', s, flags=re.S)
 open(f"{P}/index.html","w").write(s)
