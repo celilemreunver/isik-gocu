@@ -1,0 +1,180 @@
+# Kokpit sahnesini üretir: iki erkek astronot (Kaan solda, Mert sağda)
+def astronaut(pid, x, y, s, skin, skin_dark, hair, hair_hi, iris, beard, suit_accent, hairstyle):
+    beard_svg = f'''<path d="M-92 40 C-88 110 -40 142 0 142 C40 142 88 110 92 40 C80 84 50 104 0 104 C-50 104 -80 84 -92 40Z" fill="{beard}" opacity=".55"/>''' if beard else ""
+    if hairstyle == "buzz":
+        hair_svg = f'''<path d="M-100 -46 C-104 -100 -50 -124 0 -124 C52 -124 104 -102 100 -46 C90 -70 60 -84 0 -84 C-60 -84 -90 -70 -100 -46Z" fill="{hair}"/>
+          <path d="M-108 -30 L-100 -50 L-92 -50 L-96 6 Z M108 -30 L100 -50 L92 -50 L96 6 Z" fill="{hair}" opacity=".85"/>
+          <path d="M-60 -104 C-30 -116 20 -118 50 -106" stroke="{hair_hi}" stroke-width="6" stroke-linecap="round" fill="none" opacity=".6"/>'''
+    else:
+        hair_svg = f'''<path d="M-106 4 C-116 -80 -64 -126 -4 -126 C64 -128 112 -86 106 0 C100 -40 84 -58 64 -66 L72 -40 C40 -70 10 -60 -20 -76 L-14 -52 C-50 -70 -80 -60 -106 4Z" fill="{hair}"/>
+          <path d="M-40 -112 C-10 -124 30 -122 60 -104" stroke="{hair_hi}" stroke-width="7" stroke-linecap="round" fill="none" opacity=".55"/>'''
+    return f'''
+        <g id="{pid}" transform="translate({x} {y}) scale({s})">
+          <!-- gövde -->
+          <path d="M-270 470 C-275 260 -190 178 0 178 C190 178 275 260 270 470Z" fill="url(#kp-suit)"/>
+          <path d="M-270 470 C-275 260 -190 178 0 178 C-120 200 -200 270 -210 470Z" fill="#8e97b3" opacity=".45"/>
+          <path d="M-150 220 C-170 300 -175 380 -170 470 M150 220 C170 300 175 380 170 470" stroke="#a7afc6" stroke-width="6" fill="none"/>
+          <!-- göğüs ünitesi -->
+          <rect x="-92" y="262" width="184" height="104" rx="16" fill="#1d2338" stroke="#5c6688" stroke-width="5"/>
+          <rect x="-76" y="278" width="88" height="34" rx="6" fill="#0c3a4a"/>
+          <rect x="-72" y="284" width="{36}" height="6" rx="3" fill="#35e0ff"/><rect x="-72" y="296" width="62" height="6" rx="3" fill="#35e0ff" opacity=".6"/>
+          <circle class="kp-led" cx="40" cy="294" r="11" fill="#ff3b3b"/><circle cx="70" cy="294" r="11" fill="#ffd23c"/>
+          <rect x="-76" y="324" width="152" height="28" rx="6" fill="{suit_accent}"/>
+          <!-- boyun halkası -->
+          <ellipse cx="0" cy="198" rx="172" ry="44" fill="#6d7694"/>
+          <ellipse cx="0" cy="190" rx="160" ry="34" fill="#a3abc4"/>
+          <!-- kask kabuğu -->
+          <circle r="226" fill="url(#kp-shell)"/>
+          <path d="M-226 0 A226 226 0 0 0 0 226 A240 240 0 0 1 -196 40Z" fill="#7d86a3" opacity=".5"/>
+          <!-- kırmızı alarm kenar ışığı -->
+          <path d="M120 -190 A226 226 0 0 1 222 40" stroke="#ff4a4a" stroke-width="16" fill="none" opacity=".75" stroke-linecap="round"/>
+          <!-- vizör -->
+          <ellipse cx="0" cy="8" rx="178" ry="164" fill="#0a0f1f"/>
+          <ellipse cx="0" cy="8" rx="178" ry="164" fill="none" stroke="#c9a24a" stroke-width="9"/>
+          <g id="{pid}-head">
+            <g id="{pid}-face">
+              <!-- yüz -->
+              <path d="M-110 -10 C-112 -96 -60 -118 0 -118 C60 -118 112 -96 110 -10 C108 80 70 140 0 144 C-70 140 -108 80 -110 -10Z" fill="url(#{pid}-skin)"/>
+              <path d="M-110 -10 C-108 80 -70 140 0 144 C-46 128 -84 80 -92 0Z" fill="{skin_dark}" opacity=".45"/>
+              {beard_svg}
+              {hair_svg}
+              <!-- kaşlar: endişeli (iç uçlar yukarıda) -->
+              <path id="{pid}-browL" d="M-78 -18 C-62 -32 -40 -42 -16 -48" stroke="{hair}" stroke-width="12" stroke-linecap="round" fill="none"/>
+              <path id="{pid}-browR" d="M78 -18 C62 -32 40 -42 16 -48" stroke="{hair}" stroke-width="12" stroke-linecap="round" fill="none"/>
+              <!-- gözler -->
+              <ellipse cx="-44" cy="12" rx="26" ry="30" fill="#f7f4ef"/><ellipse cx="44" cy="12" rx="26" ry="30" fill="#f7f4ef"/>
+              <g id="{pid}-pupils">
+                <circle cx="-44" cy="14" r="14" fill="{iris}"/><circle cx="44" cy="14" r="14" fill="{iris}"/>
+                <circle cx="-44" cy="14" r="7" fill="#0b0b0b"/><circle cx="44" cy="14" r="7" fill="#0b0b0b"/>
+                <circle cx="-39" cy="8" r="4.5" fill="#fff"/><circle cx="49" cy="8" r="4.5" fill="#fff"/>
+              </g>
+              <path d="M-72 -2 C-58 -18 -30 -18 -16 -4 M72 -2 C58 -18 30 -18 16 -4" stroke="#3a2418" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <!-- burun -->
+              <path d="M-4 22 C-8 44 -18 58 -8 66 C0 70 10 68 16 62" stroke="{skin_dark}" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <!-- ağız -->
+              <g id="{pid}-mouth" transform="translate(0 96)">
+                <ellipse rx="32" ry="26" fill="#3b0d10"/>
+                <path d="M-24 -14 C-10 -22 10 -22 24 -14 L22 -8 C8 -14 -8 -14 -22 -8Z" fill="#f5efe6"/>
+                <ellipse cy="14" rx="16" ry="8" fill="#b4434a"/>
+              </g>
+              <!-- ter damlası -->
+              <path d="M84 -40 C78 -26 74 -16 80 -10 C86 -6 92 -12 90 -20 C88 -28 86 -34 84 -40Z" fill="#bfe7ff" opacity=".85"/>
+            </g>
+            <!-- vizör yansıması -->
+            <ellipse cx="0" cy="8" rx="178" ry="164" fill="url(#kp-visor)"/>
+            <path d="M-138 -78 C-96 -134 -30 -150 34 -142" stroke="#fff" stroke-width="14" stroke-linecap="round" opacity=".45" fill="none"/>
+            <path d="M118 70 C132 40 140 10 140 -20" stroke="#ff8a6a" stroke-width="8" stroke-linecap="round" opacity=".5" fill="none"/>
+          </g>
+          <circle cx="-150" cy="-150" r="10" fill="#e6e9f2"/><circle cx="150" cy="-150" r="10" fill="#e6e9f2"/>
+        </g>'''
+
+def skin_grad(pid, light, mid):
+    return f'''<radialGradient id="{pid}-skin" cx=".42" cy=".38" r=".75"><stop offset="0" stop-color="{light}"/><stop offset="1" stop-color="{mid}"/></radialGradient>'''
+
+kaan = astronaut("kp-kaan", 300, 1000, 0.9, "#d29a74", "#9c6446", "#1c120d", "#4a3426", "#5a3a22", "#2a1a12", "#2b5fd9", "buzz")
+mert = astronaut("kp-mert", 790, 1050, 0.86, "#f0c29e", "#c08a68", "#6b4022", "#a8703e", "#3f6f9e", None, "#c2309b", "messy")
+
+html = f'''<template>
+  <style>
+    #root {{ position: absolute; inset: 0; overflow: hidden; background: #07080f; }}
+    #kp-cam {{ position: absolute; inset: 0; }}
+    #kp-shake {{ position: absolute; inset: -40px; }}
+    #kp-svg {{ position: absolute; inset: 0; width: 100%; height: 100%; }}
+    #kp-alarm {{ position: absolute; inset: 0; background: radial-gradient(ellipse at 50% -10%, rgba(255,40,40,.7), rgba(255,0,0,.12) 55%, rgba(110,0,0,.3)); mix-blend-mode: screen; }}
+    #kp-vig {{ position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,.65) 100%); }}
+    #kp-hud {{ position: absolute; left: 0; right: 0; top: 220px; text-align: center; }}
+    #kp-hud-in {{ display: inline-block; padding: 18px 34px; border: 4px solid #ff3b3b; border-radius: 14px; background: rgba(40,0,0,.72);
+      color: #ff5050; font: 900 58px/1 Inter, sans-serif; letter-spacing: .04em; text-shadow: 0 0 18px rgba(255,60,60,.9); }}
+    #kp-hud-sub {{ margin-top: 14px; color: #ffb3b3; font: 700 32px/1 'JetBrains Mono', monospace; letter-spacing: .08em; }}
+  </style>
+  <div id="root" data-composition-id="kokpit" data-width="1080" data-height="1920">
+    <div id="kp-cam"><div id="kp-shake">
+      <svg id="kp-svg" viewBox="-40 -40 1160 2000" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="kp-wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e2236"/><stop offset=".6" stop-color="#121524"/><stop offset="1" stop-color="#090a12"/></linearGradient>
+          <radialGradient id="kp-space" cx=".5" cy=".5" r=".75"><stop offset="0" stop-color="#ff9a3c"/><stop offset=".14" stop-color="#c04cff"/><stop offset=".5" stop-color="#1c1048"/><stop offset="1" stop-color="#05060f"/></radialGradient>
+          <radialGradient id="kp-visor" cx=".3" cy=".25" r=".9"><stop offset="0" stop-color="#7fa0ff" stop-opacity=".35"/><stop offset=".5" stop-color="#2a3a6a" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".25"/></radialGradient>
+          <radialGradient id="kp-shell" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#d9deea"/><stop offset="1" stop-color="#9aa3bd"/></radialGradient>
+          <linearGradient id="kp-suit" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f6fb"/><stop offset="1" stop-color="#aab2c9"/></linearGradient>
+          <linearGradient id="kp-screen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f3d52"/><stop offset="1" stop-color="#06202c"/></linearGradient>
+          {skin_grad("kp-kaan", "#e3b08a", "#b9805d")}
+          {skin_grad("kp-mert", "#ffd9bb", "#e0a982")}
+        </defs>
+        <rect x="-40" y="-40" width="1160" height="2000" fill="url(#kp-wall)"/>
+        <!-- tavan paneli -->
+        <path d="M-40 -40 H1120 V170 L900 260 H180 L-40 170Z" fill="#171a2b"/>
+        <g fill="#2a3050"><rect x="200" y="120" width="120" height="40" rx="8"/><rect x="760" y="120" width="120" height="40" rx="8"/></g>
+        <g fill="#ffb347" opacity=".9"><circle cx="230" cy="140" r="7"/><circle cx="260" cy="140" r="7"/><circle cx="850" cy="140" r="7"/></g>
+        <!-- yan konsollar ve ekranlar -->
+        <path d="M-40 300 L160 360 V1100 L-40 1200Z" fill="#141829"/>
+        <path d="M1120 300 L920 360 V1100 L1120 1200Z" fill="#141829"/>
+        <rect x="10" y="420" width="120" height="170" rx="10" fill="url(#kp-screen)" stroke="#2c6a80" stroke-width="3"/>
+        <polyline points="20,540 40,500 60,520 80,470 100,510 120,480" stroke="#35e0ff" stroke-width="4" fill="none"/>
+        <rect x="950" y="420" width="120" height="170" rx="10" fill="#2a0c10" stroke="#ff3b3b" stroke-width="3"/>
+        <text x="1010" y="520" text-anchor="middle" font-family="Inter, sans-serif" font-weight="900" font-size="58" fill="#ff4a4a">!</text>
+        <!-- pencere -->
+        <rect x="230" y="330" width="620" height="440" rx="90" fill="#2c3352"/>
+        <rect x="252" y="352" width="576" height="396" rx="74" fill="url(#kp-space)"/>
+        <g fill="#fff" opacity=".8"><circle cx="320" cy="420" r="2.5"/><circle cx="760" cy="440" r="2"/><circle cx="700" cy="690" r="2.5"/><circle cx="350" cy="660" r="2"/><circle cx="430" cy="400" r="1.8"/></g>
+        <ellipse cx="540" cy="550" rx="150" ry="34" fill="none" stroke="#ffb46a" stroke-width="10" transform="rotate(-10 540 550)" opacity=".9"/>
+        <circle cx="540" cy="550" r="62" fill="#000"/>
+        <circle cx="540" cy="550" r="66" fill="none" stroke="#ffe0b0" stroke-width="5"/>
+        <path d="M252 450 C350 380 500 360 640 362" stroke="#fff" stroke-width="10" opacity=".18" fill="none" stroke-linecap="round"/>
+        <!-- konsol -->
+        <path d="M-40 1460 L180 1290 H900 L1120 1460 V1960 H-40Z" fill="#11141f"/>
+        <path d="M180 1290 H900" stroke="#3a4266" stroke-width="6"/>
+        <g id="kp-leds"><circle cx="260" cy="1370" r="14" fill="#ff3b3b"/><circle cx="320" cy="1370" r="14" fill="#ffae00"/><circle cx="380" cy="1370" r="14" fill="#ff3b3b"/><circle cx="700" cy="1370" r="14" fill="#ff3b3b"/><circle cx="760" cy="1370" r="14" fill="#35e0ff"/><circle cx="820" cy="1370" r="14" fill="#ff3b3b"/></g>
+        {kaan}
+        {mert}
+      </svg>
+    </div></div>
+    <div id="kp-alarm"></div>
+    <div id="kp-vig"></div>
+    <div id="kp-hud"><div id="kp-hud-in">⚠ KONTROL KAYBI</div><div id="kp-hud-sub">NAVİGASYON: ÇEVRİMDIŞI</div></div>
+  </div>
+  <script>
+    (function () {{
+      const tl = gsap.timeline({{ paused: true }});
+      function rng(seed) {{ return function () {{ seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }}; }}
+      const r = rng(7);
+      const END = 3.9;
+      tl.fromTo("#kp-alarm", {{ opacity: 0.95 }}, {{ opacity: 0.3, duration: 0.33, ease: "sine.inOut", yoyo: true, repeat: 11 }}, 0);
+      tl.fromTo("#kp-hud-in", {{ scale: 1 }}, {{ scale: 1.07, duration: 0.33, ease: "sine.inOut", yoyo: true, repeat: 11 }}, 0);
+      tl.fromTo("#kp-leds", {{ opacity: 1 }}, {{ opacity: 0.3, duration: 0.17, ease: "steps(1)", yoyo: true, repeat: 22 }}, 0);
+      // sarsıntı
+      let t = 0;
+      while (t < END) {{
+        const amp = t < 3.2 ? 9 : 18;
+        tl.to("#kp-shake", {{ x: (r() - 0.5) * 2 * amp, y: (r() - 0.5) * 2 * amp, rotation: (r() - 0.5) * 0.9, duration: 0.07, ease: "none" }}, t);
+        t += 0.07;
+      }}
+      // kamera: geniş -> Mert yakın -> Kaan yakın -> pencere
+      tl.set("#kp-cam", {{ scale: 1.0, x: 0, y: 0, transformOrigin: "50% 50%" }}, 0);
+      tl.to("#kp-cam", {{ scale: 1.32, x: -250, y: -180, duration: 0.35, ease: "power3.out" }}, 0.05);
+      tl.set("#kp-cam", {{ scale: 1.4, x: 330, y: -200 }}, 1.68);
+      tl.to("#kp-cam", {{ scale: 1.48, x: 350, y: -215, duration: 1.4, ease: "none" }}, 1.68);
+      tl.to("#kp-cam", {{ scale: 2.7, x: 0, y: 700, duration: 0.6, ease: "power3.in" }}, 3.3);
+      tl.to("#kp-hud", {{ opacity: 0, y: -40, duration: 0.2, ease: "power2.in" }}, 3.35);
+      // ağız
+      function talk(sel, start, end) {{
+        let k = start;
+        while (k < end) {{ tl.to(sel, {{ scaleY: 0.35 + r() * 1.0, scaleX: 0.85 + r() * 0.3, duration: 0.08, ease: "none" }}, k); k += 0.085; }}
+        tl.to(sel, {{ scaleY: 0.75, scaleX: 1, duration: 0.1, ease: "power1.out" }}, end);
+      }}
+      tl.set(["#kp-mert-mouth", "#kp-kaan-mouth"], {{ scaleY: 0.7 }}, 0);
+      talk("#kp-mert-mouth", 0.12, 1.6);
+      talk("#kp-kaan-mouth", 1.7, 3.9);
+      // bakışlar ve kafa hareketleri
+      tl.fromTo("#kp-mert-pupils", {{ x: -6 }}, {{ x: 8, duration: 0.22, ease: "power2.inOut", yoyo: true, repeat: 5 }}, 0.05);
+      tl.fromTo("#kp-mert-head", {{ rotation: -3 }}, {{ rotation: 4, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 4, svgOrigin: "0 120" }}, 0.05);
+      tl.to("#kp-kaan-pupils", {{ x: 10, duration: 0.15, ease: "power2.out" }}, 1.65);
+      tl.fromTo(["#kp-kaan-browL", "#kp-kaan-browR"], {{ y: 0 }}, {{ y: -10, duration: 0.12, ease: "back.out(3)" }}, 1.72);
+      tl.to(["#kp-kaan-pupils", "#kp-mert-pupils"], {{ y: -14, x: 0, duration: 0.18, ease: "back.out(2)" }}, 3.2);
+      tl.to("#kp-kaan-head", {{ rotation: 5, y: -10, duration: 0.25, ease: "power3.out", svgOrigin: "0 120" }}, 3.2);
+      window.__timelines["kokpit"] = tl;
+    }})();
+  </script>
+</template>
+'''
+open("/home/user/isik-gocu-reklam/compositions/kokpit.html", "w").write(html)
+print("yazıldı")

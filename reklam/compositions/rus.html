@@ -45,7 +45,7 @@
       const r = rng(11), CX = 560, CY = 860, R = 150;
       const stars = []; for (let i = 0; i < 380; i++) stars.push({ a: r() * 6.283, d: 200 + r() * 1100, s: 0.6 + r() * 2, b: 0.3 + r() * 0.7 });
       function draw(t) {
-        const gulp = t < 3.95 ? 0 : t < 4.13 ? (t - 3.95) / 0.18 : Math.max(0, 1 - (t - 4.13) / 0.6);
+        const gulp = t < 1.95 ? 0 : t < 2.13 ? (t - 1.95) / 0.18 : Math.max(0, 1 - (t - 2.13) / 0.6);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         const g = ctx.createRadialGradient(CX, CY, 0, CX, CY, 1300);
         g.addColorStop(0, "#2b0f3e"); g.addColorStop(0.4, "#0e0620"); g.addColorStop(1, "#02030a");
@@ -66,7 +66,7 @@
         disk(true);
       }
       const st = { t: 0 };
-      tl.fromTo(st, { t: 0 }, { t: 5.4, duration: 5.4, ease: "none", onUpdate: () => draw(st.t) }, 0);
+      tl.fromTo(st, { t: 0 }, { t: 3.2, duration: 3.2, ease: "none", onUpdate: () => draw(st.t) }, 0);
 
       // mekik: önce düz uçar, sonra yakalanıp sarmalla içeri çekilir
       const ship = document.getElementById("rs-ship");
@@ -85,11 +85,11 @@
         ship.setAttribute("transform", `translate(${a.x.toFixed(1)} ${a.y.toFixed(1)}) rotate(${ang.toFixed(1)}) scale(${(s * (1 + 2.4 * pull)).toFixed(3)} ${(s * (1 - 0.7 * pull)).toFixed(3)})`);
         ship.setAttribute("opacity", u > 0.97 ? 0 : 1);
       }
-      tl.fromTo(sp, { u: 0 }, { u: 1, duration: 4.0, ease: "power2.in", onUpdate: place }, 0);
+      tl.fromTo(sp, { u: 0 }, { u: 1, duration: 2.0, ease: "power2.in", onUpdate: place }, 0);
       place();
-      tl.fromTo("#rs-flame", { scaleX: 1 }, { scaleX: 0.3, duration: 0.12, yoyo: true, repeat: 15, transformOrigin: "100% 50%" }, 0);
+      tl.fromTo("#rs-flame", { scaleX: 1 }, { scaleX: 0.3, duration: 0.12, yoyo: true, repeat: 8, transformOrigin: "100% 50%" }, 0);
       // yutma anı
-      tl.fromTo("#rs-stamp", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.22, ease: "back.out(2)" }, 4.0);
+      tl.fromTo("#rs-stamp", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.22, ease: "back.out(2)" }, 2.0);
       draw(0);
       window.__timelines["rus"] = tl;
     })();
